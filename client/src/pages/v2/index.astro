@@ -1,0 +1,26 @@
+---
+import './index.scss'
+import '../global.scss'
+
+import { ClientRouter } from 'astro:transitions'
+
+// https://stackoverflow.com/a/59429852/13159492
+import '@fortawesome/fontawesome-svg-core/styles.css'
+import { config } from '@fortawesome/fontawesome-svg-core'
+config.autoAddCss = false
+
+---
+
+<html lang="en">
+	<head>
+		<ClientRouter />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="shortcut icon" href="/train-icon.png" type="image/x-icon">
+		<title>Open Transit Chicago</title>
+	</head>
+	<body>
+		
+	</body>
+</html>

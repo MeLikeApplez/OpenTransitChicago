@@ -1,0 +1,23 @@
+$bright-yellow: rgb(250, 200, 100);
+$bright-red: rgb(250, 80, 80);
+$bright-green: rgb(100, 250, 100);
+
+$red-line: #C60C30;
+$blue-line: #00A1DE;
+$brown-line: #62361B;
+$green-line: #009B3A;
+$orange-line: #F9461C;
+$pink-line: #E27EA6;
+$purple-line: #522398;
+$yellow-line: #F9E300;
+
+@font-face {
+    font-family: NotoSansJP;
+    src: url('/fonts/Noto_Sans_JP/static/NotoSansJP-Medium.ttf');
+    // src: url('../../public/fonts/Noto_Sans_JP/static/NotoSansJP-Regular.ttf');
+}
+
+* {
+    // font-family: NotoSansJP, 'Segoe UI', sans-serif, monospace;
+    font-family: 'Segoe UI', sans-serif, monospace;
+}

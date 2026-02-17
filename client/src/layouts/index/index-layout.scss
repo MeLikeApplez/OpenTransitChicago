@@ -1,0 +1,71 @@
+$bright-yellow: rgb(250, 200, 100);
+$bright-green: rgb(100, 250, 100);
+
+.train-stations-container {
+    .closest-station {
+        width: 100%;
+
+        .title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .line {
+            text-decoration: underline;
+        }
+
+        .station-description {
+            display: flex;
+            flex-direction: column;
+
+            overflow-wrap: break-word;
+        }
+
+
+        .distance {
+            font-family: monospace;
+            color: $bright-green;
+            overflow-wrap: break-word;
+        }
+    }
+
+    .gps {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        padding: 1rem;
+
+        .title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .locate {
+            border-radius: 6px;
+
+            font-size: 1.2rem;
+            font-weight: bold;
+
+            padding: 1rem;
+
+            background-color: rgb(46, 181, 113);
+            color: white;
+
+            display: flex;
+            gap: 6px;
+
+            cursor: pointer;
+            transition: opacity 0.1s ease;
+        }
+
+        .locate:hover {
+            opacity: 0.7;
+        }
+    }
+}

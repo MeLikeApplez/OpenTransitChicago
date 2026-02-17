@@ -1,0 +1,37 @@
+---
+import './index.scss'
+
+// https://stackoverflow.com/a/59429852/13159492
+import '@fortawesome/fontawesome-svg-core/styles.css'
+import { config } from '@fortawesome/fontawesome-svg-core'
+config.autoAddCss = false
+
+import TrainStations from '../layouts/index/index-layout'
+import FooterSources from '../components/FooterSources/FooterSources'
+import { GlobalAlertsHeader, CustomerAlertsRouteStatus } from '../components/GlobalAlerts/GlobalAlerts'
+import InteractiveTools from '../components/InteractiveTools/InteractiveTools'
+
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="shortcut icon" href="/train-icon.png" type="image/x-icon">
+		<title>Open Transit Chicago</title>
+	</head>
+	<body transition:animate="slide">
+		<main>
+			<header>
+				<h1>Open Transit Chicago</h1>
+			</header>
+			<GlobalAlertsHeader size='half' client:visible></GlobalAlertsHeader>
+			<TrainStations client:visible></TrainStations>
+			<InteractiveTools client:only></InteractiveTools>
+
+			<CustomerAlertsRouteStatus client:visible></CustomerAlertsRouteStatus>
+		</main>
+		<FooterSources></FooterSources>
+	</body>
+</html>

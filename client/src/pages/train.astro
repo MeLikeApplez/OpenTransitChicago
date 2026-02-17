@@ -1,0 +1,28 @@
+---
+import './train.scss'
+
+// https://stackoverflow.com/a/59429852/13159492
+import '@fortawesome/fontawesome-svg-core/styles.css'
+import { config } from '@fortawesome/fontawesome-svg-core'
+import TrainLayout from '../layouts/train-layout/train-layout'
+import Navbar from '../components/Navbar/Navbar'
+import FooterSources from '../components/FooterSources/FooterSources'
+config.autoAddCss = false
+
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="shortcut icon" href="/train-icon.png" type="image/x-icon">
+		<title>Train</title>
+	</head>
+	<body transition:animate="slide">
+		<main>
+			<Navbar client:load></Navbar>
+			<TrainLayout client:visible></TrainLayout>
+		</main>
+	</body>
+</html>
