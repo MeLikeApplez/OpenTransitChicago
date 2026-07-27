@@ -1,0 +1,59 @@
+import type { APIRoute } from 'astro'
+import * as z from 'zod'
+
+// https://docs.astro.build/en/guides/on-demand-rendering/#enabling-on-demand-rendering
+export const prerender = false
+
+// https://www.transitchicago.com/developers/ttdocs/#_Toc296199903
+const TrainArrivalsSchema = z.object({
+    ctatt: z.object({
+        tmst: z.string(),
+        errCd: z.string(),
+        errNm: z.nullable(z.string()),
+        eta: z.array(z.object({
+            staId: z.string(), stpId: z.string(), staNm: z.string(), stpDe: z.string(),
+            rn: z.string(), rt: z.string(),
+            destSt: z.string(), destNm: z.string(),
+            trDr: z.string(),
+            prdt: z.string(),
+            arrT: z.string(),
+            isApp: z.string(), isSch: z.string(), isDly: z.string(), isFlt: z.string(),
+            flags: z.nullable(z.string()),
+            lat: z.nullable(z.string()), lon: z.nullable(z.string()),
+            heading: z.nullable(z.string()),
+        }))
+    })
+})
+
+export const GET = (async ({ url }) => {
+    const mapId = Number(url.searchParams.get('mapId') ?? NaN)
+
+    if(isNaN(mapId)) {
+        return new Response(null, {
+            status: 400,
+            statusText: '"mapId" query is incorrect or missing!'
+        })
+    }
+
+    try {
+        const ctaURL = new URL(import.meta.env.CTA_ARRIVALS)
+
+        ctaURL.searchParams.append('key', import.meta.env.CTA_KEY)
+        ctaURL.searchParams.append('mapid', String(mapId))
+
+        const data = await (await fetch(ctaURL)).json()
+        
+        // Verify (throw error when failed)
+        TrainArrivalsSchema.parse(data)
+
+        return new Response(
+            JSON.stringify(data)
+        )
+    } catch(error: any) {
+        console.error(error)
+
+        return new Response(null, {
+            status: 500
+        })
+    }
+}) satisfies APIRoute

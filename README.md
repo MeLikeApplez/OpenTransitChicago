@@ -35,7 +35,6 @@ In the ```/server/.env``` file, add the following code.
 CTA_KEY="<CTA API KEY GOES HERE>"
 CORS_ORIGIN="*"
 
-CTA_ROUTE = "https://data.cityofchicago.org/resource/8pix-ypme.json?$query=SELECT%0A%20%20%60stop_id%60%2C%0A%20%20%60direction_id%60%2C%0A%20%20%60stop_name%60%2C%0A%20%20%60station_name%60%2C%0A%20%20%60station_descriptive_name%60%2C%0A%20%20%60map_id%60%2C%0A%20%20%60ada%60%2C%0A%20%20%60red%60%2C%0A%20%20%60blue%60%2C%0A%20%20%60g%60%2C%0A%20%20%60brn%60%2C%0A%20%20%60p%60%2C%0A%20%20%60pexp%60%2C%0A%20%20%60y%60%2C%0A%20%20%60pnk%60%2C%0A%20%20%60o%60%2C%0A%20%20%60location%60%2C%0A%20%20%60%3A%40computed_region_awaf_s7ux%60%2C%0A%20%20%60%3A%40computed_region_6mkv_f3dw%60%2C%0A%20%20%60%3A%40computed_region_vrxf_vc4k%60%2C%0A%20%20%60%3A%40computed_region_bdys_3d7i%60%2C%0A%20%20%60%3A%40computed_region_43wa_7qmu%60%0AWHERE%20%60blue%60%20%3D%3D%20TRUE%0AORDER%20BY%20%60station_name%60%20ASC%20NULL%20LAST"
 CTA_ARRIVALS = "https://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?outputType=JSON"
 CTA_FOLLOW = "http://lapi.transitchicago.com/api/1.0/ttfollow.aspx?outputType=JSON"
 
