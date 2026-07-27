@@ -5,7 +5,7 @@ import * as z from 'zod'
 export const prerender = false
 
 // https://www.transitchicago.com/assets/1/6/cta_Customer_Alerts_API_Developer_Guide_and_Documentation_20160929.pdf
-const CustomerAlertsRouteStatusSchema = z.object({
+export const CustomerAlertsRouteStatusSchema = z.object({
     CTARoutes: z.object({
         TimeStamp: z.string(),
         ErrorCode: z.string(),
@@ -31,10 +31,10 @@ export const GET = (async (args) => {
         const data = await (await fetch(ctaURL)).json()
 
         // Verify (throw error when failed)
-        CustomerAlertsRouteStatusSchema.parse(data)
+        const verifiedData = CustomerAlertsRouteStatusSchema.parse(data)
 
         return new Response(
-            JSON.stringify(data)
+            JSON.stringify(verifiedData)
     )
     } catch(error: any) {
         console.error(error)

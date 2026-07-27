@@ -5,7 +5,7 @@ import * as z from 'zod'
 export const prerender = false
 
 // https://www.transitchicago.com/developers/ttdocs/#followapi
-const TrainFollowSchema = z.object({
+export const TrainFollowSchema = z.object({
     ctatt: z.object({
         tmst: z.string(),
         errCd: z.string(),
@@ -46,10 +46,10 @@ export const GET = (async ({ url }) => {
         const data = await (await fetch(ctaURL)).json()
 
         // Verify (throw error when failed)
-        TrainFollowSchema.parse(data)
+        const verifiedData = TrainFollowSchema.parse(data)
 
         return new Response(
-            JSON.stringify(data)
+            JSON.stringify(verifiedData)
         )
     } catch(error: any) {
         console.error(error)

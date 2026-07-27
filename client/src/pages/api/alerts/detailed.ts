@@ -4,7 +4,7 @@ import * as z from 'zod'
 // https://docs.astro.build/en/guides/on-demand-rendering/#enabling-on-demand-rendering
 export const prerender = false
 
-const CustomerAlertsDetailedServiceSchema = z.object({
+export const CustomerAlertsDetailedServiceSchema = z.object({
     ServiceType: z.string(),
     ServiceTypeDescription: z.string(),
     ServiceName: z.string(),
@@ -17,7 +17,7 @@ const CustomerAlertsDetailedServiceSchema = z.object({
 })
 
 // https://www.transitchicago.com/assets/1/6/cta_Customer_Alerts_API_Developer_Guide_and_Documentation_20160929.pdf
-const CustomerAlertsDetailedSchema = z.object({
+export const CustomerAlertsDetailedSchema = z.object({
     CTAAlerts: z.object({
         TimeStamp: z.string(),
         ErrorCode: z.string(),
@@ -57,10 +57,10 @@ export const GET = (async (args) => {
         const data = await (await fetch(ctaURL)).json()
 
         // Verify (throw error when failed)
-        CustomerAlertsDetailedSchema.parse(data)
+        const verifiedData = CustomerAlertsDetailedSchema.parse(data)
 
         return new Response(
-            JSON.stringify(data)
+            JSON.stringify(verifiedData)
     )
     } catch(error: any) {
         console.error(error)
