@@ -15,10 +15,10 @@ export default class RouteStatusAlerts {
 
     constructor(RouteInfo: RouteInfoType) {
         this.route = RouteInfo.Route
-        this.color = Color('0x' + RouteInfo.RouteColorCode)
-        this.textColor = Color('0x' + RouteInfo.RouteTextColor)
+        this.color = Color('#' + RouteInfo.RouteColorCode)
+        this.textColor = Color('#' + RouteInfo.RouteTextColor)
         this.serviceId = RouteInfo.ServiceId
         this.status = RouteInfo.RouteStatus
-        this.statusColor = Color(RouteInfo.RouteStatusColor)
+        this.statusColor = Color('#' + RouteInfo.RouteStatusColor)
     }
 }

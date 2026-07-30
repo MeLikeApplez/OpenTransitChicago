@@ -15,7 +15,7 @@ export default class DetailedServiceAlerts {
         this.typeDescription = info.ServiceTypeDescription
         this.name = info.ServiceName
         this.id = info.ServiceId
-        this.backColor = Color('0x' + info.ServiceBackColor)
-        this.textColor = Color('0x' + info.ServiceTextColor)
+        this.backColor = Color('#' + info.ServiceBackColor)
+        this.textColor = Color('#' + info.ServiceTextColor)
     }
 }

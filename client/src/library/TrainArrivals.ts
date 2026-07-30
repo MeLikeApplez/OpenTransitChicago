@@ -6,6 +6,8 @@ import { TrainArrivalsSchema } from '../pages/api/train/arrivals'
 import { type ColorInstance } from 'color'
 import * as z from 'zod'
 
+type ETAType = z.infer<typeof TrainArrivalsSchema>['ctatt']['eta'][number]
+
 export default class TrainArrival {
     arrivalTime: Date
     bound: string
@@ -26,36 +28,34 @@ export default class TrainArrival {
     serviceTowards: string
     rgb: ColorInstance
 
-    constructor(train: z.infer<typeof TrainArrivalsSchema>){
-        const eta = train.ctatt.eta[0]
+    constructor(train: ETAType){
+        this.arrivalTime = new Date(train.arrT)
 
-        this.arrivalTime = new Date(eta.arrT)
+        this.bound = train.destNm
+        this.boundStopId = train.destSt
 
-        this.bound = eta.destNm
-        this.boundStopId = eta.destSt
+        this.heading = train.heading
 
-        this.heading = eta.heading
+        this.isApproaching = train.isApp === '1'
+        this.isDelayed = train.isDly === '1'
+        this.hasFault = train.isFlt === '1'
+        this.onSchedule = train.isSch === '1'
 
-        this.isApproaching = eta.isApp === '1'
-        this.isDelayed = eta.isDly === '1'
-        this.hasFault = eta.isFlt === '1'
-        this.onSchedule = eta.isSch === '1'
+        this.latitude = train.lat ? parseFloat(train.lat) : null
+        this.longitude = train.lon ? parseFloat(train.lon) : null
 
-        this.latitude = eta.lat ? parseFloat(eta.lat) : null
-        this.longitude = eta.lon ? parseFloat(eta.lon) : null
+        this.predictionTime = new Date(train.prdt)
 
-        this.predictionTime = new Date(eta.prdt)
-
-        this.runNumber = eta.rn
+        this.runNumber = train.rn
         this.line = null
         
-        this.stationId = eta.staId
-        this.stationName = eta.staNm
+        this.stationId = train.staId
+        this.stationName = train.staNm
 
-        this.routeDirectionCode = eta.trDr as RouteDirectionCodeType
-        this.serviceTowards = eta.stpDe
+        this.routeDirectionCode = train.trDr as RouteDirectionCodeType
+        this.serviceTowards = train.stpDe
 
-        switch(eta.rt) {
+        switch(train.rt) {
             case 'Red':
                 this.rgb = RedRGB
                 this.line = 'Red'

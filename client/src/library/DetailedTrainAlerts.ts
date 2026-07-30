@@ -33,7 +33,7 @@ export default class DetailedTrainAlerts {
         // 60-79 Significant delays and reroutes affecting bus and train service
         // 80-99 Major delays and service disruptions
         this.severityScore = Number(Alert.SeverityScore)
-        this.severityColor = Color('0x' + Alert.SeverityColor)
+        this.severityColor = Color('#' + Alert.SeverityColor)
         this.severityRating = 'low'
         
         this.impact = Alert.Impact

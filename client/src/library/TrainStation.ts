@@ -6,7 +6,7 @@ import { type ColorInstance } from 'color'
 import * as z from 'zod'
 
 // https://data.cityofchicago.org/Transportation/CTA-System-Information-List-of-L-Stops/8pix-ypme/data_preview
-const TrainStationRoutesSchema = z.object({
+export const TrainStationRoutesSchema = z.object({
     stop_id: z.string(),
     direction_id: z.string(),
     stop_name: z.string(),
