@@ -1,0 +1,18 @@
+---
+import MapLibre from '../components/MapLibre/MapLibre'
+import './scss/map.scss'
+
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="shortcut icon" href="/train-icon.png" type="image/x-icon">
+		<title>Train Map</title>
+	</head>
+	<body>
+		<MapLibre client:load></MapLibre>
+	</body>
+</html>

@@ -39,7 +39,9 @@ export default class CTA {
         return { x, y }
     }
 
-    // https://stackoverflow.com/a/60465578/13159492
+    /**
+     * @link {https://stackoverflow.com/a/60465578/13159492}
+     */
     static calculateGeoDistance(lat1: number, lon1: number, lat2: number, lon2: number, unit: 'kilometer' | 'mile') {
         if ((lat1 == lat2) && (lon1 == lon2)) return 0
         const radlat1 = Math.PI * lat1/180
@@ -87,16 +89,13 @@ export default class CTA {
         }
     }
 
-    /*
-    static async getTrainRailLines(cache=true): Promisified<TrainRail[], Error> {
-        if(cache && Transit.CACHE.trainRails) {
-            return [Transit.CACHE.trainRails, null]
+    static async getTrainRailLines(cache=true) {
+        if(cache && CTA.CACHE.trainRails) {
+            return [CTA.CACHE.trainRails, null]
         }
 
-        const railLinesURL = location.origin + '/CTA_RailLines.geojson'
-        const [ railLinesJSON, railLinesJSONError ] = await FetchAPIData<v.InferInput<typeof TrainRailLinesGeoJSONSchema>>(railLinesURL, TrainRailLinesGeoJSONSchema)
-        
-        if(railLinesJSONError) return [null, railLinesJSONError]
+        const railLinesJSONData = (await import('../assets/CTA-RailLines.json'))
+        const railLinesJSON = railLinesJSONData.default as z.infer<typeof TrainRailLinesGeoJSONSchema>
 
         const rails: TrainRail[] = []
         for(let i = 0; i < railLinesJSON.features.length; i++) {
@@ -107,11 +106,10 @@ export default class CTA {
             )
         }
 
-        if(cache) Transit.CACHE.trainRails = rails
+        if(cache) CTA.CACHE.trainRails = rails
 
         return [rails, null]
     }
-*/
 
     /*
     static async getGeoTrailRailLines(cache=true): Promisified<v.InferInput<typeof TrainRailLinesGeoJSONSchema>, Error> {
@@ -221,7 +219,7 @@ export default class CTA {
             return [this.CACHE.trainStationRoutes, null]
         }
         
-        const importData = (await import('./CTA-Routes.json'))
+        const importData = (await import('../assets/CTA-Routes.json'))
         const routes = (importData.default) as z.infer<typeof TrainStationRoutesSchema>[]
 
         const stations: TrainStation[] = []

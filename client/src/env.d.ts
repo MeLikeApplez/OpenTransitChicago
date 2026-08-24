@@ -7,4 +7,6 @@ interface ImportMetaEnv {
   readonly CTA_FOLLOW: string
   readonly CTA_ALERT_ROUTE_STATUS: string
   readonly CTA_ALERT_DETAILED: string
+
+  readonly PUBLIC_WEATHER_API_KEY: string
 }

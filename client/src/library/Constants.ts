@@ -9,7 +9,7 @@ export const OrangeRGB = Color.rgb(229, 70, 28)
 export const PinkRGB = Color.rgb(226, 126, 166)
 export const PurpleRGB = Color.rgb(82, 35, 152)
 export const PurpleExpressRGB = Color.rgb(172, 135, 252)
-export const YellowRGB = Color.rgb(249, 227, 0)
+export const YellowRGB = Color.rgb(249, 228, 0)
 export const UnknownRGB = Color.rgb(200, 200, 200)
 
 // https://www.transitchicago.com/developers/ttdocs/#_Toc296199907
