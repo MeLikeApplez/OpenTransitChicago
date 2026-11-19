@@ -1,0 +1,149 @@
+@use '../../pages/scss/global.scss';
+
+.Service-Towards-Group {
+    background-color: rgb(15, 15, 18);
+    
+    padding: 1rem;
+    border-radius: 0.25rem;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .train {
+        display: flex;
+        flex-direction: column;
+
+         .arrival {
+            padding: 0.5rem 1rem;
+
+            font-size: 1.2rem;
+            font-family: monospace;
+            font-weight: bold;
+
+            border-bottom-left-radius: 0.25rem;
+            border-bottom-right-radius: 0.25rem;
+
+            display: grid;
+            grid-template-columns: 50% 50%;
+
+            .eta-date {
+                display: flex;
+                align-items: center;
+                justify-content: end;
+                text-align: right;
+            }
+
+            .status {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+        }
+
+        .details {
+            display: grid;
+            grid-template-rows: repeat(3, auto);
+            grid-template-columns: 60% 40%;
+    
+            padding: 1rem;
+
+            font-weight: bold;
+
+            border-top-left-radius: 0.25rem;
+            border-top-right-radius: 0.25rem;
+
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+
+            animation: Appear 0.8s forwards ease-in-out;
+
+            .line {
+                grid-column: 1 / span 2;
+
+                font-size: 1.25rem;
+                text-decoration: underline;
+            }
+            
+            .name {
+                grid-column: 1;
+
+                font-size: 1.75rem;
+                overflow-wrap: break-word;
+            }
+
+            .eta {
+                grid-column: 2;
+
+                font-size: 1.5rem;
+                
+                display: flex;
+                align-items: center;
+                justify-content: end;
+                gap: 1rem;
+            }
+        }
+
+        .details:hover {
+            opacity: 0.6 !important;
+            animation: none;
+        }
+    }
+
+    header {
+        display: flex;
+        gap: 0.5rem;
+
+        align-items: center;
+
+        padding: 0.5rem;
+
+        font-size: 1.75rem;
+        font-weight: bold;
+    }
+}
+
+.Train-Arrival-Title {
+    padding: 0.5rem 1rem;
+
+    border-left: 0.5rem solid grey;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+
+    .loading, .error {
+        display: flex;
+        gap: 0.5rem;
+
+        align-items: center;
+    }
+
+    .descriptive-info {
+        text-decoration: underline;
+    }
+
+    
+
+    div {
+        font-size: 1.75rem;
+        font-weight: bold;
+    }
+}
+
+@keyframes Appear {
+    0% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes Flashing {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.5;
+    }
+}

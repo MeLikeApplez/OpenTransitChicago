@@ -1,0 +1,33 @@
+---
+export const prerender = false
+
+import './scss/train.scss'
+import CTA from '../library/CTA'
+import { TrainFollow } from '../components/TrainFollow/TrainFollow';
+import Navbar from '../components/Navbar/Navbar'
+import TrainFollowLib from '../library/TrainFollow';
+
+const runNumber = String(new URLSearchParams(Astro.url.search).get('runNumber'))
+
+let [ stations, stationsError ] = await CTA.followTrain(runNumber)
+stations = stationsError ? null : stations
+
+const documentTitle = stations?.[0] ? `${stations[0].stationName} | ${TrainFollowLib.getETA(stations[0])}` :  'Open Transit Chicago'
+
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="shortcut icon" href="/train-icon.png" type="image/x-icon">
+		<title>{ documentTitle }</title>
+	</head>
+	<body>
+		<main>
+			<Navbar client:load></Navbar>
+			<TrainFollow client:load stations={stations} runNumber={runNumber}></TrainFollow>
+		</main>
+	</body>
+</html>

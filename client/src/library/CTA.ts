@@ -25,7 +25,7 @@ interface CTA_CACHE {
 }
 
 export default class CTA {
-    static CACHE: CTA_CACHE = {
+    private static CACHE: CTA_CACHE = {
         trainStationRoutes: null,
         alertsDetailed: null,
         geoTrainRails: null,
@@ -153,7 +153,7 @@ export default class CTA {
         return [alerts, null]
     }
 
-    static async getRouteStatusAlerts() {
+    static async getRouteStatusAlerts(): Promise<[RouteStatusAlerts[], null] | [null, Error]> {
         const url = new URL(PUBLIC_API + '/alerts/route-status')
         
         const [ data, dataError ] = await JSONFetch<z.infer<typeof CustomerAlertsRouteStatusSchema>>(url)
@@ -172,7 +172,7 @@ export default class CTA {
         return [routes, null]
     }
 
-    static async followTrain(runNumber: string | number) {
+    static async followTrain(runNumber: string | number): Promise<[TrainFollow[], null] | [null, Error]> {
         const url = new URL(PUBLIC_API + '/train/follow')
 
         url.searchParams.append('runNumber', String(runNumber))
@@ -193,7 +193,7 @@ export default class CTA {
         return [stations, null]
     }
 
-    static async getTrainArrivals(mapId: string | number) {
+    static async getTrainArrivals(mapId: string | number): Promise<[TrainArrival[], null] | [null, Error]> {
         const url = new URL(PUBLIC_API + '/train/arrivals')
 
         url.searchParams.append('mapId', String(mapId))

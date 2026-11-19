@@ -33,3 +33,31 @@ html, body {
     background-color: rgb(20, 20, 23);
     color: white;
 }
+
+.icon-check {
+    color: $bright-green;
+}
+
+.icon-error {
+    color: $bright-red;
+}
+
+.icon-clock {
+    color: $bright-yellow;
+}
+
+.icon-refresh {
+    color: $bright-yellow;
+
+    animation: Refresh 5s infinite linear;
+}
+
+@keyframes Refresh {
+    0% {
+        rotate: 0deg;
+    }
+
+    100% {
+        rotate: 360deg;
+    }
+}

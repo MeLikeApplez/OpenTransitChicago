@@ -3,7 +3,7 @@ import {
     BlueRGB, BrownRGB, GreenRGB, PurpleExpressRGB, PurpleRGB, YellowRGB, PinkRGB, OrangeRGB, RedRGB, UnknownRGB 
 } from './Constants'
 import { TrainFollowSchema } from '../pages/api/train/follow'
-import { type ColorInstance } from 'color'
+import Color, { type ColorInstance } from 'color'
 import * as z from 'zod'
 
 type ETAType = z.infer<typeof TrainFollowSchema>['ctatt']['eta'][number]
@@ -105,38 +105,45 @@ export default class TrainFollow {
         }
     }
 
-    isDue() {
-        const timeLeft = this.getTimeLeft()
+    static getColor(train: TrainFollow) {
+        // @ts-ignore
+        const _rgb = train.rgb.color as [number, number, number]
+
+        return Color({ r: _rgb[0], g: _rgb[1], b: _rgb[2] })
+    }
+
+    static isDue(train: TrainFollow) {
+        const timeLeft = TrainFollow.getTimeLeft(train)
         
-        if(this.isDelayed || timeLeft <= 0) {
+        if(train.isDelayed || timeLeft <= 0) {
             return false
-        } else if(this.isApproaching || timeLeft <= 0.5) {
+        } else if(train.isApproaching || timeLeft <= 0.5) {
             return true
         }
 
         return false
     }
 
-    getETA() {
-        const timeLeft = this.getTimeLeft()
-        const fault = this.hasFault ? '?' : ''
+    static getETA(train: TrainFollow) {
+        const timeLeft = TrainFollow.getTimeLeft(train)
+        const fault = train.hasFault ? '?' : ''
         
-        if(this.isDelayed || timeLeft <= 0) {
+        if(train.isDelayed || timeLeft <= 0) {
             return 'Delayed' + fault
-        } else if(this.isApproaching || timeLeft <= 0.5) {
+        } else if(train.isApproaching || timeLeft <= 0.5) {
             return 'Due' + fault
         }
         
         return `${Math.round(timeLeft)} min` + fault
     }
 
-    getTimeLeft() {
-        return (this.arrivalTime.getTime() - Date.now()) / 60000
+    static getTimeLeft(train: TrainFollow) {
+        return (train.arrivalTime.getTime() - Date.now()) / 60000
     }
 
-    getTimeStatus() {
-        const timeLeft = this.getTimeLeft()
-        const delayed =this.isDelayed || timeLeft <= 0
+    static getTimeStatus(train: TrainFollow) {
+        const timeLeft = TrainFollow.getTimeLeft(train)
+        const delayed =train.isDelayed || timeLeft <= 0
         let status: 'ON-TIME' | 'DELAYED' = 'ON-TIME'
 
         if(delayed) {
@@ -146,7 +153,7 @@ export default class TrainFollow {
         return {
             status: status,
             delayed: delayed,
-            fault: this.hasFault
+            fault: train.hasFault
         }
     }
 }

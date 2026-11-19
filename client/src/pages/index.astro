@@ -1,5 +1,13 @@
 ---
 import './scss/index.scss'
+import { TrainStationList, TrainStationGPS, TrainNumberSearch } from '../components/TrainStationList/TrainStationList'
+import { Map, MapPinSearch, Search } from 'lucide-solid'
+import FooterSources from '../components/FooterSources/FooterSources'
+import Navbar from '../components/Navbar/Navbar'
+
+import CTA from '../library/CTA'
+
+const [ stations ] = await CTA.getAllTrainStationRoutes()
 
 ---
 
@@ -12,6 +20,43 @@ import './scss/index.scss'
 		<title>Open Transit Chicago</title>
 	</head>
 	<body>
-		
+		<main>
+			<Navbar client:load></Navbar>
+			<header>
+				<h1>Open Transit Chicago</h1>
+			</header>
+			
+			<section class="half-size">
+				<header>
+					<h1>
+						<Map size='2rem' />
+						Train Stations
+					</h1>
+				</header>
+				<TrainStationList client:load stations={stations!}></TrainStationList>
+				
+				<header>
+					<h1>
+						<MapPinSearch size='2rem' />
+						Find The Closest Train Station
+					</h1>
+
+				</header>
+				<TrainStationGPS client:visible stations={stations!}></TrainStationGPS>
+
+				<header>
+					<h1>
+						<Search size="2rem"/>
+						Search by Train Number
+					</h1>
+
+				</header>
+				<TrainNumberSearch client:visible></TrainNumberSearch>
+
+			</section>
+
+		</main>
+
+		<FooterSources></FooterSources>
 	</body>
 </html>

@@ -60,7 +60,7 @@ export default class TrainStation {
 
         this.name = station.station_name
         this.descriptiveName = station.station_descriptive_name
-        this.descriptiveInfo = station.station_descriptive_name.match(/\(.*\)/g)?.[0] ?? ''
+        this.descriptiveInfo = station.station_descriptive_name.match(/\(.*\)/g)?.[0].replace(/\(|\)/g, '') ?? ''
         
         if(station.blue) {
             this.line = 'Blue'

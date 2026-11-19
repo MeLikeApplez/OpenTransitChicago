@@ -1,0 +1,37 @@
+---
+export const prerender = false
+
+import './scss/train-station.scss'
+import FooterSources from '../components/FooterSources/FooterSources'
+import { TrainArrivalTitle, TrainArrivalList } from '../components/TrainArrivals/TrainArrivals'
+import Navbar from '../components/Navbar/Navbar'
+
+import CTA from '../library/CTA'
+
+const [ stations, stationsError ] = await CTA.getAllTrainStationRoutes()
+
+const mapId = String(new URLSearchParams(Astro.url.search).get('mapId'))
+const station = stationsError ? null : stations?.find(s => s.mapId === mapId)
+
+let [ arrivals, arrivalsError ] = await CTA.getTrainArrivals(mapId)
+arrivals = arrivalsError ? null : arrivals
+
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="shortcut icon" href="/train-icon.png" type="image/x-icon">
+		<title>{ station ? `${station.name} Station (${station.descriptiveInfo})` : 'Open Transit Chicago' }</title>
+	</head>
+	<body>
+		<main>
+			<Navbar client:load></Navbar>
+			<TrainArrivalTitle client:load station={station}></TrainArrivalTitle>
+			<TrainArrivalList client:load station={station} arrivals={arrivals}></TrainArrivalList>
+		</main>
+		<FooterSources></FooterSources>
+	</body>
+</html>
