@@ -128,7 +128,7 @@ export default class CTA {
     }
     */
 
-    static async getDetailedTrainAlerts(cache=true) {
+    static async getDetailedTrainAlerts(cache=true): Promise<[DetailedTrainAlerts[], null] | [null, Error]> {
         if(cache && this.CACHE.alertsDetailed) {
             return [this.CACHE.alertsDetailed, null]
         }

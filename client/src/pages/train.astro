@@ -14,6 +14,8 @@ stations = stationsError ? null : stations
 
 const documentTitle = stations?.[0] ? `${stations[0].stationName} | ${TrainFollowLib.getETA(stations[0])}` :  'Open Transit Chicago'
 
+const [ trainAlerts, trainAlertsError ] = await CTA.getDetailedTrainAlerts()
+
 ---
 
 <html lang="en">
@@ -25,8 +27,8 @@ const documentTitle = stations?.[0] ? `${stations[0].stationName} | ${TrainFollo
 		<title>{ documentTitle }</title>
 	</head>
 	<body>
+		<Navbar client:load trainAlerts={trainAlerts}></Navbar>
 		<main>
-			<Navbar client:load></Navbar>
 			<TrainFollow client:load stations={stations} runNumber={runNumber}></TrainFollow>
 		</main>
 	</body>

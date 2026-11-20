@@ -97,24 +97,27 @@ export function TrainArrivalList(props: TrainArrivalListProps) {
     let _visibilityInterval = -1
     
     const [ serviceTo, setServiceTo ] = createSignal<BoundMap[]>([], { equals: false })
-    const [ arrivals, setArrivals ] = createSignal<TrainArrival[]>([])
-    
+    const [ loadingStatus, setLoadingStatus ] = createSignal<'ready' | 'loading' | 'error'>('loading')
     
     async function refresh(fetchNewArrivals=false) {
+        setLoadingStatus('loading')
+
+        let arrivals = props.arrivals
+
         if(fetchNewArrivals) {
-            let [ newArrivals, newArrivalsError ] = await CTA.getTrainArrivals(props.station!.mapId)
+            const [ newArrivals, newArrivalsError ] = await CTA.getTrainArrivals(props.station!.mapId)
             
-            setArrivals(newArrivals ?? [])
-        } else {
-            setArrivals(props.arrivals ?? [])
+            arrivals = newArrivals
         }
         
-        if(!props.arrivals) {
+        if(!arrivals) {
+            setLoadingStatus('error')
+
             return
         }
 
         const boundMap = new Map<RouteDirectionCodeType, BoundMap>()
-        for(const train of props.arrivals) {
+        for(const train of arrivals) {
             if(!boundMap.has(train.routeDirectionCode)) {
                 boundMap.set(train.routeDirectionCode, {
                     towards: train.serviceTowards,
@@ -130,6 +133,8 @@ export function TrainArrivalList(props: TrainArrivalListProps) {
             if(!bound) continue
         
             bound.trains.push(train)
+            
+            setLoadingStatus('ready')
         }
 
         const boundMapValues = Array.from(boundMap.values())
@@ -165,10 +170,28 @@ export function TrainArrivalList(props: TrainArrivalListProps) {
     })
     
     return <div class="Train-Arrival-List">
-        <For each={serviceTo()}>{
-            (item) => <ServiceTorwardsGroup trains={item.trains} towards={item.towards} 
-                routeDirectionCode={item.routeDirectionCode} station={props.station}></ServiceTorwardsGroup>
-        }</For>
+        <Switch fallback={0}>
+            <Match when={loadingStatus() === 'loading'}>
+                <h1 class='loading'>
+                    <RefreshCw size='2rem' class='icon-refresh'></RefreshCw>
+                    Loading Train Data...
+                </h1>
+            </Match>
+            <Match when={loadingStatus() === 'ready'}>
+                <For each={serviceTo()}>
+                    {
+                        (item) => <ServiceTorwardsGroup trains={item.trains} towards={item.towards} 
+                            routeDirectionCode={item.routeDirectionCode} station={props.station}></ServiceTorwardsGroup>
+                    }
+                </For>
+            </Match>
+            <Match when={loadingStatus() === 'error'}>
+                <h1 class='error'>
+                    <OctagonExclamationPoint size='2rem' class='icon-error'></OctagonExclamationPoint>
+                    Failed to find trains! Service may be unavailable...
+                </h1>
+            </Match>
+        </Switch>
     </div>
 }
 

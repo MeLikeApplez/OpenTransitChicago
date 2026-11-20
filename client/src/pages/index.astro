@@ -8,6 +8,7 @@ import Navbar from '../components/Navbar/Navbar'
 import CTA from '../library/CTA'
 
 const [ stations ] = await CTA.getAllTrainStationRoutes()
+const [ trainAlerts, trainAlertsError ] = await CTA.getDetailedTrainAlerts()
 
 ---
 
@@ -20,8 +21,8 @@ const [ stations ] = await CTA.getAllTrainStationRoutes()
 		<title>Open Transit Chicago</title>
 	</head>
 	<body>
+		<Navbar client:load trainAlerts={trainAlerts}></Navbar>
 		<main>
-			<Navbar client:load></Navbar>
 			<header>
 				<h1>Open Transit Chicago</h1>
 			</header>

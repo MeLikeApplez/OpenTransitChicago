@@ -14,7 +14,8 @@ const mapId = String(new URLSearchParams(Astro.url.search).get('mapId'))
 const station = stationsError ? null : stations?.find(s => s.mapId === mapId)
 
 let [ arrivals, arrivalsError ] = await CTA.getTrainArrivals(mapId)
-arrivals = arrivalsError ? null : arrivals
+
+const [ trainAlerts, trainAlertsError ] = await CTA.getDetailedTrainAlerts()
 
 ---
 
@@ -27,8 +28,8 @@ arrivals = arrivalsError ? null : arrivals
 		<title>{ station ? `${station.name} Station (${station.descriptiveInfo})` : 'Open Transit Chicago' }</title>
 	</head>
 	<body>
+		<Navbar client:load trainAlerts={trainAlerts}></Navbar>
 		<main>
-			<Navbar client:load></Navbar>
 			<TrainArrivalTitle client:load station={station}></TrainArrivalTitle>
 			<TrainArrivalList client:load station={station} arrivals={arrivals}></TrainArrivalList>
 		</main>
