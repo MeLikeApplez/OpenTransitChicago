@@ -1,6 +1,6 @@
 import { 
     type TrainLines, type RouteDirectionCodeType,
-    BlueRGB, BrownRGB, GreenRGB, PurpleExpressRGB, PurpleRGB, YellowRGB, PinkRGB, OrangeRGB, RedRGB, UnknownRGB 
+    BlueRGB, BrownRGB, GreenRGB, PurpleExpressRGB, PurpleRGB, YellowRGB, PinkRGB, OrangeRGB, RedRGB, UnknownRGB, 
 } from './Constants'
 import { TrainArrivalsSchema } from '../pages/api/train/arrivals'
 import { type ColorInstance } from 'color'

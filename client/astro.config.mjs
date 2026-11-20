@@ -9,6 +9,7 @@ import lucidePreprocess from 'vite-plugin-lucide-preprocess'
 
 // https://astro.build/config
 export default defineConfig({
+    output: 'server',
     integrations: [solidJs()],
 
     // https://maplibre.org/maplibre-gl-js/docs/#__tabbed_1_1
@@ -22,6 +23,12 @@ export default defineConfig({
     }),
 
     vite: {
+        optimizeDeps: {
+            include: [
+                'moment',
+                'moment-timezone'
+            ]
+        },
         plugins: [
             // For some reason, lucide loads extremely slow without preprocessing it
             lucidePreprocess()

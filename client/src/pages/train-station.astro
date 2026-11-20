@@ -13,7 +13,7 @@ const [ stations, stationsError ] = await CTA.getAllTrainStationRoutes()
 const mapId = String(new URLSearchParams(Astro.url.search).get('mapId'))
 const station = stationsError ? null : stations?.find(s => s.mapId === mapId)
 
-let [ arrivals, arrivalsError ] = await CTA.getTrainArrivals(mapId)
+// let [ arrivals, arrivalsError ] = await CTA.getTrainArrivals(mapId)
 
 const [ trainAlerts, trainAlertsError ] = await CTA.getDetailedTrainAlerts()
 
@@ -31,7 +31,8 @@ const [ trainAlerts, trainAlertsError ] = await CTA.getDetailedTrainAlerts()
 		<Navbar client:load trainAlerts={trainAlerts}></Navbar>
 		<main>
 			<TrainArrivalTitle client:load station={station}></TrainArrivalTitle>
-			<TrainArrivalList client:load station={station} arrivals={arrivals}></TrainArrivalList>
+			<TrainArrivalList client:load station={station}></TrainArrivalList>
+			<!-- <TrainArrivalList client:load station={station} arrivals={arrivals}></TrainArrivalList> -->
 		</main>
 		<FooterSources></FooterSources>
 	</body>

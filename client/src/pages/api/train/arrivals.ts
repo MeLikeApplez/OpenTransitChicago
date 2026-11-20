@@ -47,7 +47,12 @@ export const GET = (async ({ url }) => {
         const verifiedData = TrainArrivalsSchema.parse(data)
 
         return new Response(
-            JSON.stringify(verifiedData)
+            JSON.stringify(verifiedData), {
+                headers: {
+                    'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
+                    'Netlify-CDN-Cache-Control': 'no-store'
+                }
+            }
         )
     } catch(error: any) {
         console.error(error)

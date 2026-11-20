@@ -6,6 +6,7 @@ import FooterSources from '../components/FooterSources/FooterSources'
 import Navbar from '../components/Navbar/Navbar'
 
 import CTA from '../library/CTA'
+import type DetailedTrainAlerts from '../library/DetailedTrainAlerts'
 
 const [ stations ] = await CTA.getAllTrainStationRoutes()
 const [ trainAlerts, trainAlertsError ] = await CTA.getDetailedTrainAlerts()

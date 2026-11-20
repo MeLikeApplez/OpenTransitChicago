@@ -4,7 +4,12 @@ export default async function JSONFetch<T>(input: RequestInfo | URL, customError
     customError = customError || new Error('Failed to fetch JSON!')
     
     try {   
-        const response = await fetch(input)
+        const response = await fetch(input, {
+            cache: 'no-store',
+            headers: {
+                'Cache-Control': 'no-cache'
+            }
+        })
         const json = await response.json()
 
         return [json as T, null]

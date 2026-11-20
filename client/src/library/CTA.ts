@@ -132,7 +132,7 @@ export default class CTA {
         if(cache && this.CACHE.alertsDetailed) {
             return [this.CACHE.alertsDetailed, null]
         }
-        
+
         const url = new URL(PUBLIC_API + '/alerts/detailed')
         
         const [ info, infoError ] = await JSONFetch<z.infer<typeof CustomerAlertsDetailedSchema>>(url)

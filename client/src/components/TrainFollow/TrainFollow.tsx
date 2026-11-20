@@ -18,7 +18,7 @@ interface StationDetailsProps {
     error?: boolean
 }
 
-function StationDetails({ station, loading, empty, error }: StationDetailsProps) {
+function StationDetails(props: StationDetailsProps) {
     const [ name, setName ] = createSignal('')
     const [ eta, setEta ] = createSignal('')
     const [ status, setStatus ] = createSignal('')
@@ -26,49 +26,48 @@ function StationDetails({ station, loading, empty, error }: StationDetailsProps)
     const [ time, setTime ] = createSignal('')
 
     function redirect() {
-        if(!station) return
+        if(!props.station) return
         const url = new URL(location.origin + '/train-station')
 
-        url.searchParams.set('mapId', station.stationId)
+        url.searchParams.set('mapId', props.station.stationId)
 
         location.assign(url)
     }
 
-
     createRenderEffect(() => {
-        if(error) {
+        if(props.error) {
             setName(() => 'Train may be changing numbers due to faults or delays! Please wait for new data to arrive!')
             setStatus(() => 'Failed to find train!')
             // setStatusIcon(() => <ErrorIcon noPadding />)
-        } else if(empty) {
+        } else if(props.empty) {
             setName(() => '')
             setStatus(() => '')
             // setStatusIcon(() => <></>)
-        } else if(loading) {
+        } else if(props.loading) {
             setName(() => '')
             setStatus(() => 'Loading')
             // setStatusIcon(() => <LoadingIcon noPadding />)
-        } else if(station) {
-            const { status, fault } = TrainFollowLib.getTimeStatus(station)
+        } else if(props.station) {
+            const { status, fault } = TrainFollowLib.getTimeStatus(props.station)
 
             const etaDate = new Intl.DateTimeFormat('en-us', {
                 timeStyle: 'short'
-            }).format(station.arrivalTime)
+            }).format(props.station.arrivalTime)
 
             const statusIcon = status === 'DELAYED' ? <OctagonExclamationPoint size='1.5rem' class='icon-error' /> : (
                 fault ? <TriangleExclamationPoint size='1.5rem' /> : <CheckIcon stroke-width='2.5' class='icon-check' />
             )
 
-            setName(() => station.stationName)
-            setEta(() => TrainFollowLib.getETA(station))
+            setName(() => props.station!.stationName)
+            setEta(() => TrainFollowLib.getETA(props.station!))
             setStatus(() => status)
             setStatusIcon(() => statusIcon)
             setTime(() => etaDate)
         }
-    }, [station, loading, empty, error])
+    })
 
     return <div class="station-details" style={{
-        'grid-template-columns': (error || empty || loading) ? 'auto' : ''
+        'grid-template-columns': (props.error || props.empty || props.loading) ? 'auto' : ''
     }}>
         <div class="name" onClick={redirect}>
             { name() }
@@ -88,7 +87,7 @@ function StationDetails({ station, loading, empty, error }: StationDetailsProps)
 }
 
 interface TrainFollowProps {
-    stations: TrainFollowLib[] | null | undefined
+    // stations: TrainFollowLib[] | null | undefined
     runNumber: string
 }
 
@@ -203,15 +202,15 @@ export function TrainFollow(props: TrainFollowProps) {
     async function main(fetchNewData=false) {
         refreshingLastInfo()
 
-        let stations: TrainFollowProps['stations'] = null
+        // let stations: TrainFollowProps['stations'] = props.stations
 
-        if(fetchNewData) {
-            let [ _stations, _stationsError ] = await CTA.followTrain(props.runNumber)
+        // if(fetchNewData) {
+        //     let [ _stations, _stationsError ] = await CTA.followTrain(props.runNumber)
 
-            stations = _stationsError ? null : _stations
-        } else {
-            stations = props.stations
-        }
+        //     stations = _stationsError ? null : _stations
+        // }
+
+        const  [ stations ] = await CTA.followTrain(props.runNumber)
 
         if(!stations || stations instanceof Error) {            
             setUpcomingStations([])

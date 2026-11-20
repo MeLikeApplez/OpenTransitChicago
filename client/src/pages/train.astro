@@ -29,7 +29,8 @@ const [ trainAlerts, trainAlertsError ] = await CTA.getDetailedTrainAlerts()
 	<body>
 		<Navbar client:load trainAlerts={trainAlerts}></Navbar>
 		<main>
-			<TrainFollow client:load stations={stations} runNumber={runNumber}></TrainFollow>
+			<TrainFollow client:load runNumber={runNumber}></TrainFollow>
+			<!-- <TrainFollow client:load stations={stations} runNumber={runNumber}></TrainFollow> -->
 		</main>
 	</body>
 </html>

@@ -80,7 +80,7 @@ function ServiceTorwardsGroup(props: ServiceTorwardsGroupProps) {
 }
 
 interface TrainArrivalListProps {
-    arrivals: TrainArrival[] | null
+    // arrivals: TrainArrival[] | null
     station: TrainStation | null | undefined
 }
 
@@ -100,16 +100,21 @@ export function TrainArrivalList(props: TrainArrivalListProps) {
     const [ loadingStatus, setLoadingStatus ] = createSignal<'ready' | 'loading' | 'error'>('loading')
     
     async function refresh(fetchNewArrivals=false) {
-        setLoadingStatus('loading')
+        // fetchNewArrivals = true
+        // let arrivals = props.arrivals
 
-        let arrivals = props.arrivals
-
-        if(fetchNewArrivals) {
-            const [ newArrivals, newArrivalsError ] = await CTA.getTrainArrivals(props.station!.mapId)
+        // if(fetchNewArrivals) {
+        //     const [ newArrivals, newArrivalsError ] = await CTA.getTrainArrivals(props.station!.mapId)
             
-            arrivals = newArrivals
-        }
+        //     arrivals = newArrivals
+        // } else {
+        //     setLoadingStatus('loading')
+        // }
         
+        if(!fetchNewArrivals) setLoadingStatus('loading')
+
+        const [ arrivals ] = await CTA.getTrainArrivals(props.station!.mapId)
+
         if(!arrivals) {
             setLoadingStatus('error')
 
@@ -219,7 +224,7 @@ export function TrainArrivalTitle(props: TrainArrivalTitleProps) {
         setColor(Color({ r: _rgb[0], g: _rgb[1], b: _rgb[2] }))
         setDescriptiveInfo(props.station.descriptiveInfo)
         setStationName(props.station.name + ' Station')
-    }, () => void 0)
+    })
 
     return <header class='Train-Arrival-Title' style={{
         'border-color': color().toString()

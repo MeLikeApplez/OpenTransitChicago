@@ -137,3 +137,5 @@ dist
 
 old-client
 server
+# Local Netlify folder
+.netlify
