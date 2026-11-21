@@ -54,7 +54,8 @@ export function DetailedAlerts(props: DetailedAlertsProps) {
                             'border-color': color.toString()
                         }}>
                         <div class='name' style={{
-                            'background-color': color.fade(0.8).toString()
+                            'background-color': color.fade(0.8).toString(),
+                            'border-color': color.toString()
                         }}>{ line.route }</div>
                         <div class='status'>
                             <Switch fallback={
