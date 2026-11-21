@@ -76,7 +76,7 @@ $border-radius-size: 3px;
 
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 1rem;
 
             z-index: 100;
 
@@ -95,7 +95,6 @@ $border-radius-size: 3px;
                 gap: 0.5rem;
 
                 color: rgb(80, 80, 250);
-                text-decoration: none;
 
                 border-radius: $border-radius-size;
 

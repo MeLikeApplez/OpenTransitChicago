@@ -1,0 +1,44 @@
+---
+export const prerender = false
+
+import './scss/global-alerts.scss'
+import FooterSources from '../components/FooterSources/FooterSources'
+import Navbar from '../components/Navbar/Navbar'
+import { DetailedAlerts } from '../components/DetailedAlerts/DetailedAlerts'
+
+import CTA from '../library/CTA'
+import { Bell } from 'lucide-solid'
+
+const [[ trainAlerts, trainAlertsError ], [ routeStatus, routeStatusError ]] = await Promise.all([
+    CTA.getDetailedTrainAlerts(),
+    CTA.getRouteStatusAlerts()
+])
+
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="shortcut icon" href="/train-icon.png" type="image/x-icon">
+		<title>Open Transit Chicago - Global Alerts</title>
+	</head>
+	<body>
+		<Navbar client:load trainAlerts={trainAlerts}></Navbar>
+		<main>
+            <header>
+                <h1>
+                    <Bell size="2rem" class='icon-warning' />
+                    System & Global Alerts
+                </h1>
+            </header>
+
+            <section class="half-size">
+                <DetailedAlerts client:load trainAlerts={trainAlerts} routeStatus={routeStatus}></DetailedAlerts>
+            </section>
+		</main>
+
+		<FooterSources></FooterSources>
+	</body>
+</html>

@@ -52,7 +52,7 @@ function TrainStationGroup(props: TrainStationGroupProps) {
             ) : (
                 <For each={trainStations()}>
                     {(item, index) => (
-                        <a class='name' href={`/train-station?mapId=` + item.mapId} style={{
+                        <a class='name' href={`/arrivals?mapId=` + item.mapId} style={{
                             "background-color": props.color.fade(0.9).toString(),
                             "border-color": props.color.fade(0.5).toString()
                         }}>
@@ -159,7 +159,7 @@ export function TrainStationGPS(props: TrainStationGPSProps) {
             const rgb = Color({ r: _rgb[0], g: _rgb[1], b: _rgb[2] })
                 
             setNearbyTrainStations(elements => [...elements, 
-                <a class='name-gps' href={`/train-station?mapId=` + station.mapId} style={{
+                <a class='name-gps' href={`/arrivals?mapId=` + station.mapId} style={{
                     "background-color": rgb.fade(0.9).toString(),
                     "border-color": rgb.fade(0.5).toString()
                 }}>

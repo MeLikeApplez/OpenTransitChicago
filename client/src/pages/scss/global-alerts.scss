@@ -1,0 +1,40 @@
+@use './global.scss';
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 1em;
+
+    main {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+
+        header {
+            padding: 0px 1rem;
+            text-align: center;
+
+            h1 {
+                display: grid;
+                gap: 0.5rem;
+
+                grid-template-columns: auto 1fr;
+                align-items: center;
+            }
+        }
+        
+        section.half-size {
+            max-width: 50%;
+            min-width: 95vmin;
+
+            display: flex;
+            justify-content: center;
+        }
+    }
+}

@@ -1,7 +1,7 @@
 import { createEffect, createRenderEffect, createSignal, Match, onMount, Show, Switch } from 'solid-js'
 import './Navbar.scss'
 
-import { ArrowLeft, Menu, Home, OctagonExclamationPoint, TriangleExclamationPoint, Info } from 'lucide-solid'
+import { ArrowLeft, Menu, Home, OctagonExclamationPoint, TriangleExclamationPoint, Info, Bell } from 'lucide-solid'
 import CTA from '../../library/CTA'
 import type DetailedTrainAlerts from '../../library/DetailedTrainAlerts'
 import type { SeverityRating } from '../../library/Constants'
@@ -23,10 +23,14 @@ export default function Navbar(props: NavbarProps) {
     }
 
     function redirect() {
-        // location.assign('/detailed-alerts')
+        location.assign('/global-alerts')
     }
 
     createRenderEffect(() => {
+        if(THRESHOLD_SEVERITY_SCORE < 40) {
+            throw Error('THRESHOLD_SEVERITY_SCORE must be 40 or higher!')
+        }
+
         if(!props.trainAlerts) {
             return
         }
@@ -86,8 +90,8 @@ export default function Navbar(props: NavbarProps) {
                 display: !toggleMenu() ? 'none' : ''
             }}>
                 <div class='title'>Navigation Links</div>
-                <a href="/"><Home/>Home</a>
-                {/* <div class='title'>Tools</div> */}
+                <a href="/"><Home color='rgb(213, 135, 98)' />Home / Train Stations</a>
+                <a href="/global-alerts"><Bell size="2rem" class='icon-warning' />Global Alerts</a>
             </div>
         </nav>
         <div class="space"></div>

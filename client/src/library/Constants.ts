@@ -1,4 +1,4 @@
-import Color from 'color'
+import Color, { type ColorInstance } from 'color'
 import DetailedTrainAlerts from './DetailedTrainAlerts'
 
 export const RedRGB = Color.rgb(198, 12, 48)
@@ -24,4 +24,11 @@ export interface SeverityRatingMap {
     severe: DetailedTrainAlerts[]
     lowestRank: SeverityRating | null
     highestRank: SeverityRating | null
+}
+
+export function extractRGB(rgb: ColorInstance) {
+    // @ts-ignore
+    const _rgb = rgb.color as [number, number, number]
+    
+    return new Color({ r: _rgb[0], g: _rgb[1], b: _rgb[2] })
 }
