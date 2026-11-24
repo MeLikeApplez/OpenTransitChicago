@@ -3,7 +3,10 @@
 View website here => https://open-transit-chicago.netlify.app/
 
 # Project details
+This project is a CTA train tracker that helps users stay updated on train arrivals, locations, and service alerts throughout Chicago. It provides a simple, responsive interface for checking train information and planning commutes.
+
 This project is built using Astro and SolidJS. Astro handles the overall application structure, routing, and page rendering, while SolidJS powers interactive and reactive UI components, providing a fast and responsive user experience.
+
 - Astro => https://astro.build/
 - SolidJS => https://www.solidjs.com/
 
