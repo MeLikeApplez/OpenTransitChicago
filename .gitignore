@@ -135,7 +135,8 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-old-client
-server
 # Local Netlify folder
 .netlify
+
+old-client
+server
