@@ -23,6 +23,9 @@ export default defineConfig({
     }),
 
     vite: {
+        optimizeDeps: {
+            include: ['sanitize-html']
+        },
         plugins: [
             // For some reason, lucide loads extremely slow without preprocessing it
             lucidePreprocess()

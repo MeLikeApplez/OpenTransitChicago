@@ -103,15 +103,13 @@ export default function Navbar(props: NavbarProps) {
                     const startTime = eventStart ? new Intl.DateTimeFormat('en-us', {
                         timeStyle: 'short',
                         dateStyle: 'short'
-                    }).format(eventStart) : ''
+                    }).format(eventStart) : 'TBD'
                     const endTime = eventEnd ? new Intl.DateTimeFormat('en-us', {
                         timeStyle: 'short',
                         dateStyle: 'short'
-                    }).format(eventEnd) : ''
-                    const dot = startTime || endTime ? '\u00b7' : ''
-                    const dash = (startTime && endTime) ? '-' : ''
+                    }).format(eventEnd) : 'TBD'
 
-                    const timeString = `${dot} ${startTime} ${dash} ${endTime}`
+                    const timeString = `\u00b7 ${startTime} - ${endTime}`
                     // @ts-ignore
                     const _rgb = severityColor.color as [number, number, number]
                     const brightenSeverityColor = Color({ r: _rgb[0], g: _rgb[1], b: _rgb[2] }).lighten(1).toString()

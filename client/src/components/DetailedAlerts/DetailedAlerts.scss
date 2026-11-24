@@ -32,6 +32,33 @@ html {
             scroll-snap-align: start;
             scroll-margin-top: 5em;
 
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+
+            table {
+                // width: 100%;
+
+                border-collapse: collapse;
+
+                font-size: 1.25rem;
+            }
+
+            th, td {
+                padding: 0.25rem;
+                border: 2px solid #ddd;
+                text-align: left;
+            }
+
+            .full-description {
+                text-wrap: wrap;
+
+                img {
+                    max-width: 100%;
+                    height: auto;
+                    object-fit: scale-down;
+                }
+            }
+
             .impacted-services {
                 display: flex;
                 flex-direction: row;
@@ -44,6 +71,14 @@ html {
                     padding: 0.5rem;
                     border-radius: 0.25rem;
                 }
+            }
+
+            .time {
+                font-weight: 500;
+                font-style: italic;
+                color: rgb(220, 220, 220);
+
+                text-decoration: underline;
             }
 
             .headline, h3 {
@@ -115,19 +150,43 @@ html {
 }
 
 @media (max-width: 400px) {
-    .Detailed-Alerts {
-        .route {
-            .line {
-                border-left: none;
+   .Detailed-Alerts {
+     .route {
+        .line {
+            border-left: none;
 
-                grid-template-columns: 1fr;
-                grid-template-rows: 1fr 1fr;
-                gap: 0;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 0;
 
-                .name {
-                    border-left: 0.25rem solid;
-                }
+            .name {
+                border-left: 0.25rem solid;
             }
         }
     }
+   }
+}
+
+@media (max-width: 600px) {
+    .Detailed-Alerts {
+        .details {
+            table, tbody, tr, td {
+                display: flex;
+                flex-direction: column;
+            }
+
+            tr {
+                border: 1px solid #ccc;
+            }
+
+            td {
+                text-align: right;
+                position: relative;
+
+                border: none;
+                border-bottom: 1px solid #eee;
+            }
+        }
+     }
+
 }

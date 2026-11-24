@@ -11,6 +11,7 @@ export default class DetailedTrainAlerts {
     id: number
     headline: string
     shortDescription: string
+    fullDescription: string
     severityScore: number
     severityColor: ColorInstance
     severityRating: SeverityRating
@@ -26,6 +27,7 @@ export default class DetailedTrainAlerts {
         
         this.headline = Alert.Headline
         this.shortDescription = Alert.ShortDescription
+        this.fullDescription = Alert.FullDescription["#cdata-section"]
 
         // 1-19    Accessibility and informational alerts
         // 20-39 Planned/anticipated events affecting bus and train service

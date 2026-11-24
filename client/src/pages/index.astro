@@ -1,7 +1,7 @@
 ---
 import './scss/index.scss'
 import { TrainStationList, TrainStationGPS, TrainNumberSearch } from '../components/TrainStationList/TrainStationList'
-import { Map, MapPinSearch, Search } from 'lucide-solid'
+import { Map, MapPinSearch, Search, TramFront } from 'lucide-solid'
 import FooterSources from '../components/FooterSources/FooterSources'
 import Navbar from '../components/Navbar/Navbar'
 
@@ -25,7 +25,10 @@ const [ trainAlerts, trainAlertsError ] = await CTA.getDetailedTrainAlerts()
 		<Navbar client:load trainAlerts={trainAlerts}></Navbar>
 		<main>
 			<header>
-				<h1>Open Transit Chicago</h1>
+				<h1>
+            		<TramFront size='2rem' />
+					Open Transit Chicago
+				</h1>
 			</header>
 			
 			<section class="half-size">
