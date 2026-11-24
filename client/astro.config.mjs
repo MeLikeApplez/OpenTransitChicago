@@ -23,12 +23,6 @@ export default defineConfig({
     }),
 
     vite: {
-        optimizeDeps: {
-            include: [
-                'moment',
-                'moment-timezone'
-            ]
-        },
         plugins: [
             // For some reason, lucide loads extremely slow without preprocessing it
             lucidePreprocess()

@@ -105,6 +105,14 @@
 }
 
 .Train-Arrival-List {
+    .loading, .error {
+        display: grid;
+        gap: 0.5rem;
+
+        grid-template-columns: auto 1fr;
+        align-items: center;
+    }
+
     .error {
         background-color: rgba(250, 80, 80, 0.2);
     }

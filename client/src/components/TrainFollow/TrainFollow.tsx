@@ -299,6 +299,26 @@ export function TrainFollow(props: TrainFollowProps) {
         document.title = documentTitle()
     })
 
+    onMount(() => {
+        document.onvisibilitychange = () => {
+            if(document.visibilityState === 'hidden') {
+                clearInterval(_visibilityInterval)
+                
+                return
+            }
+            if(performance.now() - _visibilityTimer < VISIBILITY_RELOAD_MS) return
+            
+            clearInterval(_visibilityInterval)
+            
+            main()
+            _visibilityInterval = setInterval(() => main(), VISIBILITY_INTERVAL_MS)
+
+            _visibilityTimer = performance.now()
+        }
+
+        _visibilityInterval = setInterval(() => main(), VISIBILITY_INTERVAL_MS)
+    })
+
     createRenderEffect(() => {
         main()
     })

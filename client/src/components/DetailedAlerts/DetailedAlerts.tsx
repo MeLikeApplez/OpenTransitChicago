@@ -26,9 +26,9 @@ export function DetailedAlerts(props: DetailedAlertsProps) {
 
         for(const details of props.trainAlerts) {
             // R = train service, T = train station, B = bus service
-            if(!details.impactedServices.some(v => v.type === 'R' || v.type === 'T')) {
-                continue
-            }
+            // if(!details.impactedServices.some(v => v.type === 'R' || v.type === 'T')) {
+            //     continue
+            // }
 
             setTrainAlerts(prev => [
                 ...prev, details
@@ -85,8 +85,9 @@ export function DetailedAlerts(props: DetailedAlertsProps) {
                     const color = extractRGB(train.severityColor)
                     const brightenSeverityColor = color.lighten(1).toString()
 
-                    return <div class='details' style={{
-                            'border-color': train.severityScore > 20 ? color.toString() : ''
+                    return <div class='details' id={String(train.id)} style={{
+                            'border-color': train.severityScore > 20 ? color.toString() : '',
+                            '--flash-color': color.fade(0.7).toString()
                         }}>
                         <div class="headline">
                             <Switch>

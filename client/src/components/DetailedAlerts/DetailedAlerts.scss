@@ -1,5 +1,9 @@
 @use '../../pages/scss/global.scss';
 
+html {
+    scroll-behavior: smooth;
+}
+
 .Detailed-Alerts {
     display: flex;
     justify-content: center;
@@ -12,6 +16,10 @@
         gap: 1rem;
 
         font-size: 1.25rem;
+        
+        .details:target {
+            animation: 2s Flash forwards ease-in-out;
+        }
 
         .details {
             background-color: rgb(30, 30, 33);
@@ -20,6 +28,9 @@
             padding: 1rem;
 
             font-weight: 500;
+
+            scroll-snap-align: start;
+            scroll-margin-top: 5em;
 
             .impacted-services {
                 display: flex;
@@ -64,7 +75,7 @@
             
             border-left: 0.25rem solid;
 
-            font-size: 1.35rem;
+            font-size: 1.5rem;
             font-weight: 500;
 
             .status {
@@ -94,6 +105,12 @@
                 padding: 0.75rem;
             }
         }
+    }
+}
+
+@keyframes Flash {
+    50% {
+        background-color: var(--flash-color);
     }
 }
 

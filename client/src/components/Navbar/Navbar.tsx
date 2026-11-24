@@ -13,6 +13,7 @@ interface NavbarProps {
 
 const MIN_ANIMATION_SCROLL_Y = 3
 const THRESHOLD_SEVERITY_SCORE = 60
+// const THRESHOLD_SEVERITY_SCORE = 40
 export default function Navbar(props: NavbarProps) {
     const [ navOpacity, setNavOpacity ] = createSignal('')
     const [ toggleMenu, setToggleMenu ] = createSignal(false)
@@ -22,8 +23,8 @@ export default function Navbar(props: NavbarProps) {
         history.back()
     }
 
-    function redirect() {
-        location.assign('/global-alerts')
+    function redirect(details: DetailedTrainAlerts) {
+        location.assign(`/global-alerts#${details.id}`)
     }
 
     createRenderEffect(() => {
@@ -91,7 +92,7 @@ export default function Navbar(props: NavbarProps) {
             }}>
                 <div class='title'>Navigation Links</div>
                 <a href="/"><Home color='rgb(213, 135, 98)' />Home / Train Stations</a>
-                <a href="/global-alerts"><Bell size="2rem" class='icon-warning' />Global Alerts</a>
+                <a href="/global-alerts"><Bell class='icon-warning' />Global Alerts</a>
             </div>
         </nav>
         <div class="space"></div>
@@ -115,7 +116,7 @@ export default function Navbar(props: NavbarProps) {
                     const _rgb = severityColor.color as [number, number, number]
                     const brightenSeverityColor = Color({ r: _rgb[0], g: _rgb[1], b: _rgb[2] }).lighten(1).toString()
 
-                    return <div class="global-alerts-container" onclick={redirect}>
+                    return <div class="global-alerts-container" onclick={() => redirect(details())}>
                         <div class="details" style={{
                             'background-color': severityColor.toString()
                         }}>
