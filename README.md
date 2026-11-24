@@ -22,6 +22,7 @@ In the ```/client/.env``` file, add the following code.
 > > Apply here https://www.transitchicago.com/developers/traintrackerapply/
 ```
 PUBLIC_API_DEV="http://127.0.0.1:5173/api"
+# Optional / Not Needed production URL
 PUBLIC_API_PROD="<YOUR PRODUCTION APP URL>/api"
 
 # Server Side
@@ -34,7 +35,7 @@ CTA_ALERT_ROUTE_STATUS = "http://www.transitchicago.com/api/1.0/routes.aspx?type
 CTA_ALERT_DETAILED = "http://lapi.transitchicago.com/api/1.0/alerts.aspx?outputType=JSON"
 
 # https://www.maptiler.com/
-# Not required yet
+# Optional / Not Needed
 PUBLIC_WEATHER_API_KEY="<MAPTILER API KEY>"
 ```
 
